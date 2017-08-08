@@ -894,7 +894,7 @@
                     self._triggerAddEvent();
                     self._triggerChangeEvent();
 
-                    jQuery(this).trigger('added', [[_.clone(node)]]); //cloud-iq change
+                    $(this).trigger('added', [[_.clone(node)]]); //cloud-iq change
                 
                     self.grid.endUpdate();
                 });
