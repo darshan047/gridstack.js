@@ -859,10 +859,20 @@
                     node._grid = self;
                     var el = $(ui.draggable).clone(false);
                     el.data('_gridstack_node', node);
-                    var originalNode = $(ui.draggable).data('_gridstack_node_orig');
-                    if (typeof originalNode !== 'undefined') {
-                        originalNode._grid._triggerRemoveEvent();
-                    }
+                    
+                    $(ui.draggable).clone(false) //cloud-iq change
+                                   .insertAfter(ui.draggable)
+                                   .draggable({
+                                        cursor: 'move',
+                                        helper: function(e) {
+                                           var original = $(e.target).hasClass("ui-draggable") ? $(e.target) :  $(e.target).closest(".ui-draggable");
+                                           return original.clone().css({
+                                               width: original.width(), // or outerWidth*
+                                               zIndex: 5
+                                           });                
+                                        }
+                                    });
+                
                     $(ui.draggable).remove();
                     node.el = el;
                     self.placeholder.hide();
@@ -884,6 +894,8 @@
                     self._triggerAddEvent();
                     self._triggerChangeEvent();
 
+                    jQuery(this).trigger('added', [[_.clone(node)]]); //cloud-iq change
+                
                     self.grid.endUpdate();
                 });
         }
