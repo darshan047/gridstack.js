@@ -893,9 +893,6 @@
                     self.grid._addedNodes.push(node);
                     self._triggerAddEvent();
                     self._triggerChangeEvent();
-
-                    $(this).trigger('added', [[_.clone(node)]]); //cloud-iq change
-                
                     self.grid.endUpdate();
                 });
         }
