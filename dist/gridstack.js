@@ -846,11 +846,13 @@
                     var el = $(ui.draggable);
                     el.unbind('drag', onDrag);
                     var node = el.data('_gridstack_node');
-                    node.el = null;
-                    self.grid.removeNode(node);
-                    self.placeholder.detach();
-                    self._updateContainerHeight();
-                    el.data('_gridstack_node', el.data('_gridstack_node_orig'));
+                    if (node !== undefined) { //prevent TypeError
+                        node.el = null;
+                        self.grid.removeNode(node);
+                        self.placeholder.detach();
+                        self._updateContainerHeight();
+                        el.data('_gridstack_node', el.data('_gridstack_node_orig'));
+                    }
                 })
                 .on(self.container, 'drop', function(event, ui) {
                     self.placeholder.detach();
