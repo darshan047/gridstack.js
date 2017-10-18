@@ -846,7 +846,7 @@
                     var el = $(ui.draggable);
                     el.unbind('drag', onDrag);
                     var node = el.data('_gridstack_node');
-                    if (node !== undefined) { //prevent TypeError
+                    if (node) { //prevent TypeError
                         node.el = null;
                         self.grid.removeNode(node);
                         self.placeholder.detach();
